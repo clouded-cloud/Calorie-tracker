@@ -17,21 +17,22 @@
 
            <div class="addmeal-container">
              <h3>Meal item</h3>
-             <input type="text" id="Add-meal" placeholder ="Add meal"/>
-             <button class="submit"id="Add-Meal-Button">Add Meal</button>
+             <input type="text" id="Add-meal" placeholder ="Add meal" required>
             </div> 
 
             <div class="calorie-container">
                 <h3>Calorie count</h3>
-             <input type="number" id="Add-calorie" placeholder ="Add calorie"/>
-             <button class="submit"id="Add-Calorie-Button">Add Calorie</button>
+             <input type="number" id="Add-calorie" placeholder ="Add calorie" required>
             </div> 
 
             <div class="calendar-container">
                 <h3>Date</h3>
-                <input type="date" id="Date" name="Date">
-                <input type="submit"> 
+                <input type="date" id="Date" name="Date" required>
             </div> 
+
+            <div class="btns">
+                   <button id="add-to-table">Add to Table</button>
+            </div>
 
             <section>
                 <div id="calories-table">
@@ -60,5 +61,6 @@
      </div>
     </div>
    </div>
+    <script src="script.js"></script>
 </body>
 </html>
