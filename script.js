@@ -1,7 +1,7 @@
 
 // select DOM elements
-const addMealInput = document.getElementById("add meal");
-const addMealButton = document.getElementById("add meal");
-const addCalorie = document.getElementById("add calorie");
-const addMeal = document.getElementById("add meal");
+const addMealInput = document.getElementById("Add-meal");
+const addMealButton = document.getElementById("Add-Meal-Button");
+const addCalorie = document.getElementById("Add-calorie");
+const addCalorieButton = document.getElementById("Add-Calorie-Button");
 const addMeal = document.getElementById("add meal");
