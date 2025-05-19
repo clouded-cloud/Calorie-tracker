@@ -9,22 +9,16 @@ const caloriestablebody = document.getElementById("calorie-table-body");
 
 //functions
 
-function addMealInput() {
+function addmealbutton() 
+    
     const meal = mealInput.value.trim();
-    const calories = calorieInput.value.trim();
-    const date = dateInput.value.trim();
+    const calories = parseInt(calorieInput.value.trim());
+    const date = dateInput.value;
 
-
-   meals.push({ meal, calories, date });
-   mealinput.value = '';
-   calorieinput.value = '';
-   dateinput.value = '';
-   updateTable();
-}
-  function deleteMeal(index) {
-    meals.slice(index, 1);
-    updateTable();
+ if (addMealInput||addCalorieInput||adddateinput)  {
+     alert("please input,");
+     return;
+    
  }
+  
 
- document.getElementById('Add-Meal-Button').addEventListener('click', addMeal);
-  document.getElementById('Add-Calorie-Button').addEventListener('click', addMeal);
