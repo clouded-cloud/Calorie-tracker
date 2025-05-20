@@ -1,1 +1,93 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Main Wrapper */
+.wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Grid Layout */
+.container-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Form Styles */
+form {
+    display: grid;
+    gap: 15px;
+}
+
+.addmeal-container,
+.calorie-container,
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Button */
+.btns button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btns button:hover {
+    background-color: #218838;
+}
+
+/* Table */
+#calories-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+
+tfoot td {
+    font-weight: bold;
+}
