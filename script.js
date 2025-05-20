@@ -1,52 +1,63 @@
 
 // select DOM elements
+const EDAMAM_APP_ID = "29f56d92"; // Replace with your App ID
+const EDAMAM_APP_KEY = "29f56d92"; // Replace with your App Key
+
 const mealInput = document.getElementById("add-meal");
-const calorieInput = document.getElementById("add-calorie");
 const dateInput = document.getElementById("date");
 const addButton = document.getElementById("meal-button");
 const tableBody = document.getElementById("calories-table-body");
 const totalCalories = document.getElementById("total-amount-calories");
 
 document.addEventListener("DOMContentLoaded", loadMeals);
-
 addButton.addEventListener("click", addMeal);
 
-//functions add meal
-function addMeal() {
+// Add meal with API calorie lookup
+async function addMeal() {
     const meal = mealInput.value.trim();
-    const calories = parseInt(calorieInput.value.trim());
     const date = dateInput.value;
 
-    if (!meal || isNaN(calories) || !date) {
-        alert("Please fill out all fields correctly.");
+    if (!meal || !date) {
+        alert("Please enter both meal and date.");
         return;
     }
 
-    const mealData = {
-        id: Date.now(),
-        meal,
-        calories,
-        date
-    };
+    try {
+        const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?ingr=${encodeURIComponent(meal)}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_APP_KEY}`);
+        const data = await response.json();
 
-    // Save to localStorage
-    const meals = getMealsFromStorage();
-    meals.push(mealData);
-    localStorage.setItem("meals", JSON.stringify(meals));
+        if (!data.parsed || data.parsed.length === 0 || !data.parsed[0].food.nutrients.ENERC_KCAL) {
+            alert("Calorie data not found for this meal.");
+            return;
+        }
 
-    // Add to UI
-    addMealToTable(mealData);
+        const calories = Math.round(data.parsed[0].food.nutrients.ENERC_KCAL);
 
-    // Update total
-    updateTotalCalories();
+        const mealData = {
+            id: Date.now(),
+            meal,
+            calories,
+            date
+        };
 
-    // Clear input fields
-    mealInput.value = "";
-    calorieInput.value = "";
-    dateInput.value = "";
+        const meals = getMealsFromStorage();
+        meals.push(mealData);
+        localStorage.setItem("meals", JSON.stringify(meals));
+
+        addMealToTable(mealData);
+        updateTotalCalories();
+
+        // Clear inputs
+        mealInput.value = "";
+        dateInput.value = "";
+
+    } catch (error) {
+        console.error("Error fetching calorie data:", error);
+        alert("Error retrieving calorie information.");
+    }
 }
 
-// Add single row to table
+// Add a single row to the table
 function addMealToTable(mealData) {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -59,7 +70,7 @@ function addMealToTable(mealData) {
     tableBody.appendChild(row);
 }
 
-// Load and display meals
+// Load meals from localStorage
 function loadMeals() {
     const meals = getMealsFromStorage();
     meals.forEach(addMealToTable);
@@ -71,7 +82,7 @@ function getMealsFromStorage() {
     return JSON.parse(localStorage.getItem("meals")) || [];
 }
 
-// Delete meal
+// Delete a meal
 function deleteMeal(id) {
     let meals = getMealsFromStorage();
     meals = meals.filter(meal => meal.id !== id);
@@ -89,5 +100,3 @@ function updateTotalCalories() {
     const total = meals.reduce((sum, meal) => sum + meal.calories, 0);
     totalCalories.textContent = total;
 }
-
-
